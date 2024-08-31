@@ -9,10 +9,10 @@ const  RutaPrivada = ({component : Component,  ...props}) => {
     useEffect(() => {
         
         usuarioAutenticado();  
-        console.log("ruta privada" + autenticado);      
+        //console.log("ruta privada" + autenticado);      
     }, [])
-        console.log(props);
-        console.log("ruta privada" + autenticado);      
+        //console.log(props);
+        //console.log("ruta privada" + autenticado);      
     return ( 
         <Route {...props} render = { props => !autenticado && !cargando ? (
             <Redirect to="/" />

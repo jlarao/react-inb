@@ -84,8 +84,8 @@ const  Categorias = (props) =>{
             <div className="card">
               <div className="card-header">
                 <div className="row">
-                  <div className="col-lg-9"><h3 className="h6 text-uppercase mb-0">Secciones del usuarios</h3></div> 
-                  <div className="col-lg-3"><button type="button" className="btn btn-primary" onClick={btnTemaCursoAgregar}>Agregar Sección</button></div>
+                  <div className="col-lg-9"><h3 className="h6 text-uppercase mb-0">SeccioneS</h3></div> 
+                  <div className="col-lg-3"></div>
                 </div>
               </div>
               <div className="card-body">

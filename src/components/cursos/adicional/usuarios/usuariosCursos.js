@@ -41,6 +41,7 @@ const  UsuariosCursos = (props) =>{
 
   if(cursosInscritos === null) return <PreLoader />
   if(cursosNoInscrito === null) return <Preloader />
+  if(datosUsuario === null) return <Preloader />
   console.log(cursosInscritos);
     return ( <div className="page-holder w-100 d-flex flex-wrap">
     <div className="container-fluid px-xl-5">

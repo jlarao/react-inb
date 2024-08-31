@@ -29,7 +29,10 @@ import {//REGISTRO_EXITOSO,
     LOADING_CURSO,
     OBTENER_CURSOS_ALUMNO,
     MAX_FILE_UPLOAD,
-    MAX_FILE_UPLOAD_ERROR
+    MAX_FILE_UPLOAD_ERROR,
+    SET_PAGE_COUNT,
+    SET_OFF_SET,
+    SET_SLICE
     
 } from "../../types";
 
@@ -302,6 +305,23 @@ export default (state, action) =>{
             ...state,
             maxFileUpload: "No definido"
         }
+        case SET_PAGE_COUNT:
+            return{
+                ...state,
+                pageCount: action.payload
+            }
+        case SET_OFF_SET:
+                return {
+                    ...state,
+                    offset: action.payload
+                }
+                //cursos.slice( (offset -1) * perPage, offset * perPage)
+        case SET_SLICE:
+            console.log(action.payload);
+            return{
+                ...state,
+                slice: state.cursos.slice( (state.offset -1) * state.perPage, state.offset * state.perPage)
+            }
         default: return state;                
                 
     }

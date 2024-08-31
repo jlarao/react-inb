@@ -99,9 +99,9 @@ const  CursoEditar = (props) =>{
           Sección {temasCurso[i].nombreTema}<i className="fas fa-angle-down rotate-icon ml-auto"></i>
         </a>
       </div>
-      <div className="col-lg-2" title = "Editar Titulo"  > 
-      <button className ="btn  btn-outline-primary" onClick={ ()=>{btnTemaCursoEditar(`tema${id}`)} }><i className="fa fa-pencil-alt"></i></button>
-  <button className ="btn  btn-outline-danger ml-1" onClick={ ()=>{btnTemaCursoEliminar(id)} }><i className="fa fa-trash"></i></button></div>      
+      <div className="col-lg-2"   > 
+      <button className ="btn  btn-outline-primary" onClick={ ()=>{btnTemaCursoEditar(`tema${id}`)} } title = "Editar Titulo"><i className="fa fa-pencil-alt"></i></button>
+  <button className ="btn  btn-outline-danger ml-1" onClick={ ()=>{btnTemaCursoEliminar(id)} } title = "Eliminar Titulo"><i className="fa fa-trash"></i></button></div>      
       
     </div>
     </div>

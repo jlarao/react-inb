@@ -6,29 +6,46 @@ import Preloader from "../../curso/preloader";
 import Modal from "../../../functions/function";
 import CategoriaEditar from '../categoriaEditar';
 import { useDispatch, useSelector } from "react-redux";
-import {  obtenerCategorias ,obtenerUsuariosRol} from "../../../../actions/adicionalActions";
+import {  obtenerRolesUsuario ,obtenerUsuariosRol} from "../../../../actions/adicionalActions";
 import { UsuariosTable } from '../tabla/usuariosTable';
 import PreLoader from '../../curso/preloader';
+import EditorRolUsuario from './editarRolUsuario';
+import { UsuariosTablePagination } from '../tabla/usuariosTablePagination';
 
 const  Usuarios = (props) =>{   
   const dispatch = useDispatch();
   //const categorias = useSelector( state => state.adicional.categorias);
   const usuariosRoles = useSelector( state => state.adicional.usuariosRol);
+  const roles = useSelector(state => state.adicional.roles)
   //const obtenerCategoriasDatos = e => dispatch( obtenerCategorias());
   const obtenerUsuariosRolDatos = e => dispatch(obtenerUsuariosRol());
-  
-    
+  const obtenerRolesUsuarioDatos = e => dispatch(obtenerRolesUsuario(e));
+  const [formInscribir,setFormInscribir] = useState(false);
+  const [idLogin,setIdLogin] = useState(0);
+  const [idRol,setIdRol] = useState(0);
+  const [nombre,setNombre] = useState("");
            
 
     useEffect(() => {              
              obtenerUsuariosRolDatos();
+             obtenerRolesUsuarioDatos();
     }, [])
 
+    const btnFormInscribirCerrar = (e)=>{   
+      setFormInscribir(false);
+  }
+  const btnEditarRol = (e)=>{   
+    console.log(e);
+    setIdLogin(e.idLogin);
+    setIdRol(e.idrol);
+    setNombre(e.nombre);
 
-  
+    setFormInscribir(true);
+}
 
   if(usuariosRoles === null) return <PreLoader />
-  console.log(usuariosRoles);
+  if(roles === null) return <PreLoader />
+  console.log(roles);
     return ( <div className="page-holder w-100 d-flex flex-wrap">
     <div className="container-fluid px-xl-5">
       <section className="pt-5">      
@@ -60,10 +77,16 @@ const  Usuarios = (props) =>{
                
                 <div className="row">
                 <div className="col-lg-12 mb-5">
-                <UsuariosTable usuariosRoles={usuariosRoles}/>
+                                <UsuariosTablePagination usuariosRoles={usuariosRoles} btnEditarRol={btnEditarRol}/> 
             </div>
             </div>
                 
+            <div className="row">
+                <div className="col-lg-12 mb-5">
+                {formInscribir === true && 
+                <EditorRolUsuario btnFormInscribirCerrar={btnFormInscribirCerrar} formInscribir={formInscribir} roles={roles} idLog={idLogin} idR={idRol} nombre={nombre}/>     }
+                </div>
+            </div>
                 
               </div>
             </div>

@@ -33,7 +33,10 @@ import {
     OBTENER_CURSOS_ALUMNO,
    // OBTENER_CURSOS_ALUMNO_ERROR,
     MAX_FILE_UPLOAD,
-    MAX_FILE_UPLOAD_ERROR
+    MAX_FILE_UPLOAD_ERROR,
+    SET_PAGE_COUNT,
+    SET_OFF_SET,
+    SET_SLICE
 } from "../../types";
 
 
@@ -60,7 +63,12 @@ const CursosState = props => {
         idTema:null,
         subTemasCurso: [],
         cargando: false,
-        maxFileUpload: 0
+        maxFileUpload: 0,
+        offset: 1,
+        perPage: 5,
+        pageCount: 0,
+        slice: []
+        
     }
     const [state, dispatch] = useReducer(CursosReducer, initialState);
 
@@ -720,6 +728,35 @@ const CursosState = props => {
                 })
             }          
         }
+
+        const setPageCount = (e) =>{
+            console.log("setPageCount");
+            dispatch({
+                type: SET_PAGE_COUNT,
+                payload: e
+            })
+        }
+
+        const setOffset = (e) =>{
+            console.log("setPageCount");
+            dispatch({
+                type: SET_OFF_SET,
+                payload: e
+            })
+        }
+
+        const setSlice = (e) =>{
+            console.log("setSlice");
+            const page = {
+                offset: state.offset,
+                perPage: state.perPage,
+            }
+            dispatch({
+                type: SET_SLICE,
+                payload: page               
+            })
+        }
+        
     return ( 
         <CursosContext.Provider
             value={{
@@ -743,6 +780,10 @@ const CursosState = props => {
                 maxFileUpload: state.maxFileUpload,
                 estatus: state.estatus,
                 duracion: state.duracion,
+                offset: state.offset,
+                perPage: state.perPage,
+                pageCount: state.pageCount,
+                slice: state.slice,
                 obtenerCursosUsuarioInstructor,
                 agregarCurso,
                 obtenerCursosPorId,
@@ -767,7 +808,10 @@ const CursosState = props => {
                 limpiarState,
                 limpiarMensaje,
                 obtenerCursosUsuarioAlumno,
-                obtenerMaxFileUpload
+                obtenerMaxFileUpload,
+                setPageCount,
+                setOffset,
+                setSlice
                 }}
         >
             {props.children}

@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useEffect, useContext} from "react";
 //import axios from "axios";
 import { NavLink } from "react-router-dom";
-//import AuthContext from '../context/authentication/authContext';
+import AuthContext from '../context/authentication/authContext';
+
 //import AlertaContext from '../context/alerta/alertaContext';
 
 const Registrar=(props) => {       
+  const authContext = useContext(AuthContext);
+  const { limpiarRegistroExitoso }  = authContext;
+
+  useEffect(() => {
+    limpiarRegistroExitoso();
+    
+  }, [])
     return(   
       <div className="page-holder w-100 d-flex flex-wrap">
         <div className="container-fluid px-xl-5">     

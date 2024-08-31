@@ -9,7 +9,7 @@ import Registrar from "./layouts/Registrar";
 import CursoAlta from "./layouts/CursoAlta";
 import RegistroExitoso from "./layouts/RegistroExitoso";
 import Dashboard from './components/dashboard';
-import DashboardAdmin from './components/dashboardAdmin';
+import DashboardAdminP from './components/dashboardAdminP';
 import DashboardAlumno from './components/dashboardAlumno'
 import RutaPrivada from "./components/rutas/RutaPrivada";
 import CursoEditar from "./components/cursoEditar";
@@ -58,7 +58,7 @@ function App() {
         <Route path="/comprar" component={ComprarCurso} />
         <Route path="/categorias" component={Categorias} />
                  
-        <RutaPrivada exact path="/dashboardAdmin" component={DashboardAdmin}/>
+        <RutaPrivada exact path="/dashboardAdmin" component={DashboardAdminP}/>
         <RutaPrivada exact path="/dashboardP" component={Dashboard}/>        
         <RutaPrivada exact path="/dashboardA" component={DashboardAlumno}/>        
         <RutaPrivada exact path="/curso-alta" component={CursoAlta}/>

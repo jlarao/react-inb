@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react'
-import { useTable} from "react-table";
+import { useTable, usePagination} from "react-table";
 //import MOCK_DATA from "../../../MOCK_DATA.json";
 import { COLUMNS } from "./columnsUsuarios";
 import { Link  } from "react-router-dom";
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {  activarUsuariosRol, eliminarUsuariosRol ,limpiarMensajeAdicional} from "../../../../actions/adicionalActions";
 import Modal from "../../../functions/function";
 
-export const UsuariosTable = ({usuariosRoles, btnEditarRol}) => {
+export const UsuariosTablePagination = ({usuariosRoles, btnEditarRol}) => {
     const dispatch = useDispatch();  
   const eliminarUsuarios = e => dispatch( eliminarUsuariosRol(e));
   const activarUsuarios = e => dispatch(activarUsuariosRol(e));
@@ -92,7 +92,8 @@ export const UsuariosTable = ({usuariosRoles, btnEditarRol}) => {
     const tableInstance = useTable({
         columns,
         data: usuariosRoles
-    })
+    },
+    usePagination)
     const suspenderUsuario= (e) =>{
         eliminarUsuarios(e);
         console.log(e);
@@ -106,9 +107,21 @@ export const UsuariosTable = ({usuariosRoles, btnEditarRol}) => {
         getTableProps, 
         getTableBodyProps, 
         headerGroups, 
-        rows, 
+        page, 
+        nextPage,
+        previousPage,
+        canNextPage,
+        canPreviousPage,
+        pageOptions,
+        gotoPage,
+        pageCount,
+        setPageSize,
+        state,
         prepareRow } = tableInstance;
+
+        const { pageIndex, pageSize } = state;
     return (
+        <>
         <table {...getTableProps()}>
            <thead>
            {headerGroups.map((headerGroup) => (
@@ -126,7 +139,7 @@ export const UsuariosTable = ({usuariosRoles, btnEditarRol}) => {
 
            <tbody {...getTableBodyProps()}>
                {
-                    rows.map(row => {
+                    page.map(row => {
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()}>
@@ -141,5 +154,35 @@ export const UsuariosTable = ({usuariosRoles, btnEditarRol}) => {
                
            </tbody>
         </table>
+        <div>
+            <span>
+                Pagina{' '}
+                <strong>{pageIndex+1} de {pageOptions.length}</strong>{' '}
+            </span>
+            <span>Ir a la página: {' '}
+                <input type="number" defaultValue={pageIndex+1} onChange={ e => { 
+                    const pageNumber = e.target.value ? Number(e.target.value -1) : 0
+                    gotoPage(pageNumber)
+                 }} style = {{ width : '50px' }}/>
+            </span>
+            <select value={pageSize} onChange = { (e) => setPageSize(Number(e.target.value)) } >
+                 {
+                     [5,10,20].map( pageSize => (
+                         <option key={pageSize} value={pageSize}>
+                             mostrar {pageSize}
+                         </option>
+                     ))
+                 }
+            </select>
+            <button onClick={ ()=> gotoPage(0) } disabled={ !canPreviousPage} >{'<<'}</button>
+            <button onClick={ ()=>{previousPage()}  } disabled={!canPreviousPage}>
+                Anterior
+                </button>
+            <button onClick={ ()=>{nextPage() }} disabled={!canNextPage}>
+                Siguiente
+                </button>
+            <button onClick={ ()=> gotoPage(pageCount-1) } disabled= { !canNextPage} >{'>>'}</button>
+        </div>
+        </>
     )
 }

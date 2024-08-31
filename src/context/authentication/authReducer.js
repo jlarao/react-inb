@@ -4,7 +4,9 @@ import {
     OBTENER_USUARIO,
     LOGIN_EXITOSOS,
     LOGIN_ERROR,
-    CERRAR_SESION} from '../../types/index';
+    CERRAR_SESION,
+    LIMPIAR_REGISTRO_EXITOSO
+} from '../../types/index';
 
 export default (state, action) =>{
     switch(action.type)   {
@@ -43,6 +45,11 @@ export default (state, action) =>{
                 autenticado: false,
                 mensaje: action.payload,
                 cargando: false
+            }
+        case LIMPIAR_REGISTRO_EXITOSO:
+            return{
+                ...state,
+                registroexitoso: false
             }
         default:
             return state;

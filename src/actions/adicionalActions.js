@@ -53,6 +53,14 @@ import {
     DATOS_USUARIO_EXITO,
     DATOS_USUARIO_ERROR,
 
+    OBTENER_ROLES_USUARIO_INICIO,
+    OBTENER_ROLES_USUARIO_EXITO,
+    OBTENER_ROLES_USUARIO_ERROR,
+
+    EDITAR_ROL_USUARIO_INICIO,
+    EDITAR_ROL_USUARIO_EXITO,
+    EDITAR_ROL_USUARIO_ERROR,   
+
 } from "../types/index";
 
 export function obtenerCategorias(){
@@ -609,5 +617,83 @@ const limpiarMensajeAction = () =>
     })
     const datosUsuarioErrorAction=(r)=>({
         type: DATOS_USUARIO_ERROR,
+        payload: r
+    })
+
+    export function obtenerRolesUsuario(){
+        return async (dispatch) => {
+            dispatch(obtenerRolesUsuarioInicioAction());    
+        const token  = localStorage.getItem("token");
+        if(token){
+            tokenAuth(token) ;
+        }
+        
+        try{
+            const response = await clienteAxios.get("rol?page=0");
+            console.log(response);            
+            dispatch(obtenerRolesUsuarioExitoAction(response.data));
+    
+        }
+        catch(e){
+            console.log(e.response);
+                const alert = {
+                    msg: e.response.data.message,
+                    categoria: "danger"
+                }
+            dispatch(obtenerRolesUsuarioErrorAction(alert));
+        }
+    }
+    }
+    
+    const obtenerRolesUsuarioInicioAction=()=>({
+        type: OBTENER_ROLES_USUARIO_INICIO,
+        payload: true
+    })
+    const obtenerRolesUsuarioExitoAction=(datos)=>({
+        type: OBTENER_ROLES_USUARIO_EXITO,
+        payload: datos
+    })
+    const obtenerRolesUsuarioErrorAction=(estado)=>({
+        type: OBTENER_ROLES_USUARIO_ERROR,
+        payload: estado
+    })
+
+    export function editarRolUsuarioAction(datos){
+        return async (dispatch) =>{
+            dispatch(editarRolUsuarioInicioAction());
+            const token = localStorage.getItem('token');
+            if(tokenAuth){
+                tokenAuth(token);
+            }
+            
+            try {
+                const response = await clienteAxios.put("loginjwt",  datos );
+                const alert = {
+                    msg: response.data.message,
+                    categoria: "success"
+                }               
+               
+                dispatch( editarRolUsuarioExitoAction(Array(alert, datos)));
+            } catch (error) {
+                console.log(error.response)
+                const alert = {
+                    msg: error.response.data.message,
+                    categoria: "danger"
+                }
+                dispatch( editarRolUsuarioErrorAction(alert) );
+            }
+        }
+    
+    }
+    const editarRolUsuarioInicioAction=()=>({
+        type: EDITAR_ROL_USUARIO_INICIO,
+        payload: true
+    })
+    const editarRolUsuarioExitoAction=(r)=>({
+        type: EDITAR_ROL_USUARIO_EXITO,
+        payload: r
+    })
+    const editarRolUsuarioErrorAction=(r)=>({
+        type: EDITAR_ROL_USUARIO_ERROR,
         payload: r
     })

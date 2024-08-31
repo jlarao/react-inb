@@ -158,7 +158,7 @@ const ListadoSubTema = ({subTema, maxFileUpload}) => {
                 <span className="ml-2">{herramienta.nombreHerramienta} </span>               
                 <i className="fas fa-file-pdf ml-2"></i>
                 <button  className="btn btn-success ml-auto" title="Editar archivo" onClick={()=>{btnEditarDocHerramienta(`editarDocumento${idH}`);}}><i className="fa fa-pencil-alt "></i></button>
-                <button  className="btn btn-danger ml-auto" title="Eliminar archivo" onClick={()=>{btnEliminarDocHerramienta(idH);}}><i className="fas fa-trash "></i></button>
+                <button  className="btn btn-danger ml-1" title="Eliminar archivo" onClick={()=>{btnEliminarDocHerramienta(idH);}}><i className="fas fa-trash "></i></button>
                 </p>              
                 )
               }else{ return null;}

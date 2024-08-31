@@ -11,7 +11,9 @@ import {
     OBTENER_USUARIO,
     LOGIN_EXITOSOS,
     LOGIN_ERROR,
-    CERRAR_SESION} from '../../types/index';
+    CERRAR_SESION,
+    LIMPIAR_REGISTRO_EXITOSO
+} from '../../types/index';
 
 
     const AuthState = props => {
@@ -52,7 +54,7 @@ import {
                 if (error.response) {
                     // client received an error response (5xx, 4xx)
                     const alerta =  {
-                        msg: `error al conectar al api ${error.response.data.message}`,
+                        msg: error.response.data.message,
                         categoria :'alerta-error'
                     }
                     dispatch({
@@ -169,6 +171,12 @@ import {
                     type: CERRAR_SESION
                 })
         }
+        const limpiarRegistroExitoso =()=>{
+            console.log("cerrar sesion");
+            dispatch({
+                type: LIMPIAR_REGISTRO_EXITOSO
+            })
+    }
         return(
             <AuthContext.Provider
             value={{token : state.token,
@@ -180,7 +188,8 @@ import {
                 registrarUsuario,
                 iniciarSesion,
                 usuarioAutenticado,
-                cerrarSesion
+                cerrarSesion,
+                limpiarRegistroExitoso
              }}
                 >{props.children}</AuthContext.Provider>
         )

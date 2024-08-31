@@ -79,7 +79,7 @@ function DashboardAlumno() {
                     <h2 className="h6 mb-0 text-uppercase">Cursos comprados</h2>
                   </div>
                   <div className="card-body">
-                    <p className="text-gray mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p className="text-gray mb-5"></p>
                               {cursosLista}                                
                   </div>
                 </div>
@@ -94,24 +94,8 @@ function DashboardAlumno() {
                   </div>
                   <div className="icon bg-violet text-white"><i className="fas fa-clipboard-check"></i></div>
                 </div>
-                <div className="bg-white shadow roundy px-4 py-3 d-flex align-items-center justify-content-between mb-4">
-                  <div className="flex-grow-1 d-flex align-items-center">
-                    <div className="dot mr-3 bg-green"></div>
-                    <div className="text">
-                      <h6 className="mb-0">New Quotes</h6><span className="text-gray">214 new quotes</span>
-                    </div>
-                  </div>
-                  <div className="icon bg-green text-white"><i className="fas fa-dollar-sign"></i></div>
-                </div>
-                <div className="bg-white shadow roundy px-4 py-3 d-flex align-items-center justify-content-between mb-4">
-                  <div className="flex-grow-1 d-flex align-items-center">
-                    <div className="dot mr-3 bg-blue"></div>
-                    <div className="text">
-                      <h6 className="mb-0">New clients</h6><span className="text-gray">25 new clients</span>
-                    </div>
-                  </div>
-                  <div className="icon bg-blue text-white"><i className="fas fa-user-friends"></i></div>
-                </div>
+             
+              
                 
               </div>
             

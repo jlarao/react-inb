@@ -53,6 +53,15 @@ import {
     DATOS_USUARIO_INICIO,
     DATOS_USUARIO_EXITO,
     DATOS_USUARIO_ERROR,
+
+    OBTENER_ROLES_USUARIO_INICIO,
+    OBTENER_ROLES_USUARIO_EXITO,
+    OBTENER_ROLES_USUARIO_ERROR,
+
+    EDITAR_ROL_USUARIO_INICIO,
+    EDITAR_ROL_USUARIO_EXITO,
+    EDITAR_ROL_USUARIO_ERROR,
+
 } from "../types";
 
 const initialState  = {
@@ -62,7 +71,8 @@ const initialState  = {
     usuariosRol: null,
     cursosInscritos: null,
     cursosNoInscrito: null,
-    datosUsuario: null
+    datosUsuario: null,
+    roles: null
 }
 
 export default function (state  = initialState, action){
@@ -76,6 +86,8 @@ export default function (state  = initialState, action){
         case OBTENER_DATOS_CURSOS_USUARIO_NO_INSCRITO_INICIO:
         case INSCRIBIR_USUARIO_CURSO_INICIO:
         case DATOS_USUARIO_INICIO:
+        case OBTENER_ROLES_USUARIO_INICIO:
+        case EDITAR_ROL_USUARIO_INICIO:
             return {
                 ...state,
                 loading: action.payload
@@ -148,6 +160,8 @@ export default function (state  = initialState, action){
         case OBTENER_DATOS_CURSOS_USUARIO_NO_INSCRITO_ERROR:
         case INSCRIBIR_USUARIO_CURSO_ERROR:
         case DATOS_USUARIO_ERROR:
+        case OBTENER_ROLES_USUARIO_ERROR:
+        case EDITAR_ROL_USUARIO_ERROR:
             return{
                 ...state,
                 mensaje: action.payload,
@@ -275,6 +289,29 @@ export default function (state  = initialState, action){
         return{
             ...state,
             datosUsuario: action.payload
+        }
+    case OBTENER_ROLES_USUARIO_EXITO:
+        return {
+            ...state,
+            roles: action.payload
+        }
+    case EDITAR_ROL_USUARIO_EXITO:
+        let usuariosRoles = state.usuariosRol;
+            for(let j=0; j< usuariosRoles.length; j++){
+                //console.log(h[j])
+                let item =  usuariosRoles[j];
+                if(item.idLogin === action.payload[1].idLogin)
+                {
+                    item.nombreRol  = action.payload[1].nombreRol;
+                    item.idRol  = action.payload[1].idRol;
+                    usuariosRoles[j] = item;
+                }
+                }
+        return{
+            ...state,
+            usuariosRol: usuariosRoles,
+            mensaje: action.payload[0],
+            loading: false
         }
         default: 
         return state;
